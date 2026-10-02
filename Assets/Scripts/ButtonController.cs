@@ -1,9 +1,12 @@
-using System;
+using TMPro;
 using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
     public static ButtonController Instance;
+    
+    [Header("Energy Tracking")]
+    public TextMeshProUGUI energyText;
     
     private int _energy;
     private int _energyPerClick;
@@ -11,6 +14,7 @@ public class ButtonController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        if (energyText == null) Debug.LogWarning("ButtonController: No Energy Text Set.");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,6 +38,13 @@ public class ButtonController : MonoBehaviour
     public void IncrementEnergy(int amount)
     {
         _energy += amount;
-        // UPDATE UI!!!!
+        UpdateEnergyText();
+    }
+
+    private void UpdateEnergyText()
+    {
+        if (energyText == null) return;
+        
+        energyText.text = _energy.ToString();
     }
 }
