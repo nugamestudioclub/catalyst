@@ -14,12 +14,13 @@ public class ButtonController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        if (energyText == null) Debug.LogWarning("ButtonController: No Energy Text Set.");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        if (energyText == null) Debug.LogWarning("ButtonController: No Energy Text Set.");
+        
         _energy = 0;
         _energyPerClick = 1;
     }
@@ -46,5 +47,15 @@ public class ButtonController : MonoBehaviour
         if (energyText == null) return;
         
         energyText.text = _energy.ToString();
+    }
+
+    public int GetEnergy()
+    {
+        return _energy;
+    }
+
+    public void ModifyEnergyPerClick(int amount)
+    {
+        _energyPerClick += amount;
     }
 }
