@@ -1,6 +1,11 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Controls the main button in the center of the screen.
+/// <p>
+/// Stores the amount of energy currently collected. On each click, increments the energy amount by the set amount.</p>
+/// </summary>
 public class ButtonController : MonoBehaviour
 {
     public static ButtonController Instance;

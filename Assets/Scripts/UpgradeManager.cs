@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls the purchasing and processing of upgrades.
+/// </summary>
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
@@ -23,7 +26,19 @@ public class UpgradeManager : MonoBehaviour
     {
         
     }
+    
+    public static bool VerifyEnoughEnergy(Upgrade upgrade)
+    {
+        return upgrade.energyCost <= ButtonController.Instance.GetEnergy();
+    }
 
+    /// <summary>
+    /// Attempts to make an upgrade using the Player's current collected energy.
+    /// <p>
+    /// If the player does not have enough energy, it will break early. </p>
+    /// If the player has enough, it will process the upgrade and increase the subsequent price cost.
+    /// </summary>
+    /// <param name="upgrade">The upgrade to attempt to purchase.</param>
     public void TryUpgrade(Upgrade upgrade)
     {
         if (!VerifyEnoughEnergy(upgrade)) return;
@@ -34,11 +49,14 @@ public class UpgradeManager : MonoBehaviour
         upgrade.energyCost = (int) (upgrade.energyCost * UpgradeCostMult);
     }
 
-    public static bool VerifyEnoughEnergy(Upgrade upgrade)
-    {
-        return upgrade.energyCost <= ButtonController.Instance.GetEnergy();
-    }
-
+    /// <summary>
+    /// Process the upgrade and apply the effect.
+    /// <p>
+    /// If the upgrade is MouseClick type, it will increase the energy per click.</p>
+    /// If the upgrade is OverTime type, it doesn't do anything. Go bother a dev.
+    /// </summary>
+    /// <param name="upgrade">The upgrade to process.</param>
+    /// <exception cref="ArgumentOutOfRangeException">If somehow the UpgradeType isn't one of the available.</exception>
     private static void ProcessUpgrade(Upgrade upgrade)
     {
         switch (upgrade.upgradeType)
