@@ -5,7 +5,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
 
-    public const float UpgradeCostMult = 1.35F;
+    private const float UpgradeCostMult = 1.35F;
     
     private void Awake()
     {
