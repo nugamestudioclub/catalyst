@@ -729,6 +729,7 @@ GameObject:
   - component: {fileID: 820722334}
   - component: {fileID: 820722333}
   - component: {fileID: 820722332}
+  - component: {fileID: 820722336}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -824,6 +825,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &820722336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820722331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0f0d82d4588e0448e72c376d3aa483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonController
+  energyText: {fileID: 1946319090}
+  energyPerClickText: {fileID: 0}
+  energyPerSecText: {fileID: 0}
 --- !u!1 &905531575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonController
   energyText: {fileID: 1946319090}
+  energyPerClickText: {fileID: 0}
+  energyPerSecText: {fileID: 0}
 --- !u!1 &1753231578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,7 +1905,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5529c6e92e483aa604d328c355bd87, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicUITypewriter
   logPanel: {fileID: 905531576}
   fontAsset: {fileID: 11400000, guid: 2ae55ac771f6eb146be17a679772df18, type: 2}
@@ -1983,7 +2001,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 4c9292a2ff2192743992b307fc47eede, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
