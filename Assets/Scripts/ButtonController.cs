@@ -13,6 +13,7 @@ public class ButtonController : MonoBehaviour
     [Header("UI Elements")]
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI energyPerClickText;
+    public TextMeshProUGUI energyPerSecText;
     
     private int _energy;
     private int _energyPerClick;
@@ -28,15 +29,20 @@ public class ButtonController : MonoBehaviour
         _energy = 0;
         _energyPerClick = 1;
         
-        if (energyText == null) 
+        if (!energyText) 
             Debug.LogWarning("ButtonController: No Energy Text Set.");
         else
             UpdateEnergyText();
         
-        if (energyPerClickText == null) 
+        if (!energyPerClickText) 
             Debug.LogWarning("ButtonController: No Energy Per Click Text Set.");
         else 
             UpdateEnergyPerClickText();
+        
+        if (!energyPerSecText) 
+            Debug.LogWarning("ButtonController: No Energy Per Second Text Set.");
+        else 
+            UpdateEnergyPerSecText(0);
     }
 
     // Update is called once per frame
@@ -56,13 +62,6 @@ public class ButtonController : MonoBehaviour
         UpdateEnergyText();
     }
 
-    private void UpdateEnergyText()
-    {
-        if (energyText == null) return;
-        
-        energyText.text = _energy.ToString();
-    }
-
     public int GetEnergy()
     {
         return _energy;
@@ -74,10 +73,24 @@ public class ButtonController : MonoBehaviour
         UpdateEnergyPerClickText();
     }
     
+    private void UpdateEnergyText()
+    {
+        if (!energyText) return;
+        
+        energyText.text = _energy.ToString();
+    }
+    
     private void UpdateEnergyPerClickText()
     {
-        if (energyPerClickText == null) return;
+        if (!energyPerClickText) return;
         
         energyPerClickText.text = "Energy Per Click: " + _energyPerClick;
+    }
+    
+    public void UpdateEnergyPerSecText(int perSec)
+    {
+        if (!energyPerSecText) return;
+        
+        energyPerSecText.text = "Energy Per Second: " + perSec;
     }
 }

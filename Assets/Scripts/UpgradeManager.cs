@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,8 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
-
+    
+    private int _energyPerSec;
     private const float UpgradeCostMult = 1.35F;
     
     private void Awake()
@@ -57,7 +59,7 @@ public class UpgradeManager : MonoBehaviour
     /// </summary>
     /// <param name="upgrade">The upgrade to process.</param>
     /// <exception cref="ArgumentOutOfRangeException">If somehow the UpgradeType isn't one of the available.</exception>
-    private static void ProcessUpgrade(Upgrade upgrade)
+    private void ProcessUpgrade(Upgrade upgrade)
     {
         switch (upgrade.upgradeType)
         {
@@ -66,7 +68,7 @@ public class UpgradeManager : MonoBehaviour
                 break;
             
             case Upgrade.UpgradeType.OverTime:
-                Debug.Log("Do Nothing.");
+                ModifyEnergyPerSec(upgrade.upgradeAmount);
                 break;
             
             default:
@@ -74,4 +76,22 @@ public class UpgradeManager : MonoBehaviour
         }
     }
     
+    private void ModifyEnergyPerSec(int amount)
+    {
+        var startCoroutine = _energyPerSec == 0;
+        _energyPerSec += amount;
+        ButtonController.Instance.UpdateEnergyPerSecText(_energyPerSec);
+        
+        if (startCoroutine) StartCoroutine(GenerateEnergy());
+    }
+
+    private IEnumerator GenerateEnergy()
+    {
+        while (true)
+        {
+            ButtonController.Instance.IncrementEnergy(_energyPerSec);
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
 }
