@@ -55,7 +55,7 @@ public class UpgradeManager : MonoBehaviour
     /// Process the upgrade and apply the effect.
     /// <p>
     /// If the upgrade is MouseClick type, it will increase the energy per click.</p>
-    /// If the upgrade is OverTime type, it doesn't do anything. Go bother a dev.
+    /// If the upgrade is OverTime type, it will increase the energy per second.
     /// </summary>
     /// <param name="upgrade">The upgrade to process.</param>
     /// <exception cref="ArgumentOutOfRangeException">If somehow the UpgradeType isn't one of the available.</exception>
@@ -76,6 +76,12 @@ public class UpgradeManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Update the number of Energy produced per second.
+    /// <p>
+    /// If this number has never been updated from 0, it will start the coroutine cycle to produce Energy.</p>
+    /// </summary>
+    /// <param name="amount">The amount to modify energyPerSec by.</param>
     private void ModifyEnergyPerSec(int amount)
     {
         var startCoroutine = _energyPerSec == 0;
@@ -85,6 +91,9 @@ public class UpgradeManager : MonoBehaviour
         if (startCoroutine) StartCoroutine(GenerateEnergy());
     }
 
+    /// <summary>
+    /// Runs the one-second cycle for producing Energy.
+    /// </summary>
     private IEnumerator GenerateEnergy()
     {
         while (true)
