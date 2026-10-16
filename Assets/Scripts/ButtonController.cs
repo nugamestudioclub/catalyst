@@ -10,8 +10,9 @@ public class ButtonController : MonoBehaviour
 {
     public static ButtonController Instance;
     
-    [Header("Energy Tracking")]
+    [Header("UI Elements")]
     public TextMeshProUGUI energyText;
+    public TextMeshProUGUI energyPerClickText;
     
     private int _energy;
     private int _energyPerClick;
@@ -24,10 +25,18 @@ public class ButtonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        if (energyText == null) Debug.LogWarning("ButtonController: No Energy Text Set.");
-        
         _energy = 0;
         _energyPerClick = 1;
+        
+        if (energyText == null) 
+            Debug.LogWarning("ButtonController: No Energy Text Set.");
+        else
+            UpdateEnergyText();
+        
+        if (energyPerClickText == null) 
+            Debug.LogWarning("ButtonController: No Energy Per Click Text Set.");
+        else 
+            UpdateEnergyPerClickText();
     }
 
     // Update is called once per frame
@@ -62,5 +71,13 @@ public class ButtonController : MonoBehaviour
     public void ModifyEnergyPerClick(int amount)
     {
         _energyPerClick += amount;
+        UpdateEnergyPerClickText();
+    }
+    
+    private void UpdateEnergyPerClickText()
+    {
+        if (energyPerClickText == null) return;
+        
+        energyPerClickText.text = "Energy Per Click: " + _energyPerClick;
     }
 }
