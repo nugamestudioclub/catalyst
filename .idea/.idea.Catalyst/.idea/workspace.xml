@@ -11,8 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbf2edba-6cdd-4cf2-8c43-4cf9b011afb9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ButtonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ButtonTestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IncrementText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IncrementText.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
