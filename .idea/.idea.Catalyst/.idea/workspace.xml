@@ -11,8 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbf2edba-6cdd-4cf2-8c43-4cf9b011afb9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Catalyst/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Catalyst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Catalyst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ButtonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ButtonTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +22,71 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/93e6391e4688454a985ab5dc6ed6bd9821c400/a2/9b3fb3f5/Component.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.000140517536511" />
+      <entry key="MS500" value="1.2190236666589853" />
+      <entry key="S2" value="2.1581931502938425" />
+      <entry key="S5" value="3.3988780609511946" />
+      <entry key="S10" value="7.110129952174205" />
+      <entry key="S30" value="20.401375633552263" />
+      <entry key="S60" value="29.534500016398948" />
+      <entry key="M2" value="37.817023694485506" />
+      <entry key="M5" value="51.80606836218077" />
+      <entry key="M10" value="85.10500576126339" />
+      <entry key="M15" value="119.63970399795038" />
+      <entry key="M30" value="189.17936959330035" />
+      <entry key="H1" value="248.21745165933208" />
+      <entry key="H2" value="287.0784036948109" />
+      <entry key="H4" value="309.42964595668406" />
+      <entry key="D1" value="329.741305193607" />
+      <entry key="W1" value="333.3874769485392" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.194557415888622E-190" />
+      <entry key="MS500" value="1.217609161044386E-38" />
+      <entry key="S2" value="6.367417585509774E-10" />
+      <entry key="S5" value="3.976501625233944E-4" />
+      <entry key="S10" value="0.034432670790658836" />
+      <entry key="S30" value="0.7048794123073776" />
+      <entry key="S60" value="1.66073636131548" />
+      <entry key="M2" value="2.8009170046472165" />
+      <entry key="M5" value="5.015690764974331" />
+      <entry key="M10" value="10.262483841382007" />
+      <entry key="M15" value="15.677095769730187" />
+      <entry key="M30" value="26.538156618195877" />
+      <entry key="H1" value="35.71903898821094" />
+      <entry key="H2" value="41.74376796969568" />
+      <entry key="H4" value="45.20270028968665" />
+      <entry key="D1" value="48.3421981902773" />
+      <entry key="W1" value="48.90539861390713" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="5.1289885895301E-4" />
+      <entry key="MS500" value="0.2756121536348944" />
+      <entry key="S2" value="1.4624295930810578" />
+      <entry key="S5" value="2.9530771395573567" />
+      <entry key="S10" value="6.8187180756176415" />
+      <entry key="S30" value="20.90425838930924" />
+      <entry key="S60" value="31.05424627057865" />
+      <entry key="M2" value="40.52468041339482" />
+      <entry key="M5" value="56.76023488197798" />
+      <entry key="M10" value="95.3034400517935" />
+      <entry key="M15" value="135.25116249155863" />
+      <entry key="M30" value="215.66171395297712" />
+      <entry key="H1" value="283.898855029518" />
+      <entry key="H2" value="328.8001573512556" />
+      <entry key="H4" value="354.620420712326" />
+      <entry key="D1" value="378.0813767841858" />
+      <entry key="W1" value="382.29256819881107" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7,

@@ -14,6 +14,8 @@ public class ButtonController : MonoBehaviour
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI energyPerClickText;
     public TextMeshProUGUI energyPerSecText;
+    public Transform incrementTextPos;
+    public IncrementText incrementText;
     
     private int _energy;
     private int _energyPerClick;
@@ -60,6 +62,7 @@ public class ButtonController : MonoBehaviour
     {
         _energy += amount;
         UpdateEnergyText();
+        CreateIncrementText(amount);
     }
 
     public int GetEnergy()
@@ -92,5 +95,12 @@ public class ButtonController : MonoBehaviour
         if (!energyPerSecText) return;
         
         energyPerSecText.text = "Energy Per Second: " + perSec;
+    }
+
+    private void CreateIncrementText(int amount)
+    {
+        var text = Instantiate(incrementText, parent:transform);
+        text.transform.position = incrementTextPos.position;
+        text.Trigger(amount);
     }
 }
