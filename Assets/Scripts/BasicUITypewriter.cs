@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public sealed class BasicUITypewriter : MonoBehaviour
 {
@@ -21,10 +22,11 @@ public sealed class BasicUITypewriter : MonoBehaviour
     [SerializeField] private AudioClip[] typingSounds;
     [SerializeField, Range(0f, 0.5f)] private float pitchRandomness = 0.08f;
 
-    private TextMeshProUGUI outputText;
-    private AudioSource audioSource;
-    private Coroutine typingCoroutine;
-    private bool skipRequested;
+    private RectTransform _viewport;
+    private TextMeshProUGUI _outputText;
+    private AudioSource _audioSource;
+    private Coroutine _typingCoroutine;
+    private bool _skipRequested;
 
     private void Awake()
     {
@@ -48,14 +50,14 @@ public sealed class BasicUITypewriter : MonoBehaviour
 
         if (typingSounds != null && typingSounds.Length > 0)
         {
-            audioSource = GetComponent<AudioSource>();
-            if (audioSource == null)
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
             {
-                audioSource = gameObject.AddComponent<AudioSource>();
+                _audioSource = gameObject.AddComponent<AudioSource>();
             }
 
-            audioSource.playOnAwake = false;
-            audioSource.volume = 0.12f;
+            _audioSource.playOnAwake = false;
+            _audioSource.volume = 0.12f;
         }
     }
 
@@ -69,65 +71,72 @@ public sealed class BasicUITypewriter : MonoBehaviour
 
     private void Update()
     {
-        if (typingCoroutine != null && Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
+        if (_typingCoroutine != null && Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
         {
-            skipRequested = true;
+            _skipRequested = true;
         }
     }
 
     public void Play()
     {
-        if (outputText == null)
+        if (_outputText == null)
         {
             return;
         }
 
-        if (typingCoroutine != null)
+        if (_typingCoroutine != null)
         {
-            StopCoroutine(typingCoroutine);
+            StopCoroutine(_typingCoroutine);
         }
 
-        skipRequested = false;
-        typingCoroutine = StartCoroutine(TypeMessage());
+        _skipRequested = false;
+        _typingCoroutine = StartCoroutine(TypeMessage());
     }
 
     private void CreateOutputText()
     {
-        GameObject textObject = new GameObject("TypewriterText", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-        RectTransform textRect = textObject.GetComponent<RectTransform>();
-        textRect.SetParent(logPanel, false);
+        var viewportObject = new GameObject("TypewriterViewport", typeof(RectTransform), typeof(RectMask2D));
+        _viewport = (RectTransform)viewportObject.transform;
+        _viewport.SetParent(logPanel, false);
+        _viewport.anchorMin = Vector2.zero;
+        _viewport.anchorMax = Vector2.one;
+        _viewport.offsetMin = textInset;
+        _viewport.offsetMax = -textInset;
+        _viewport.SetAsLastSibling();
+
+        var textObject = new GameObject("TypewriterText", typeof(RectTransform), typeof(CanvasRenderer),
+            typeof(TextMeshProUGUI));
+        var textRect = (RectTransform)textObject.transform;
+        textRect.SetParent(_viewport, false);
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
-        textRect.offsetMin = textInset;
-        textRect.offsetMax = -textInset;
-        textRect.SetAsLastSibling();
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
 
-        outputText = textObject.GetComponent<TextMeshProUGUI>();
-        outputText.font = fontAsset != null ? fontAsset : TMP_Settings.defaultFontAsset;
-        outputText.fontSize = fontSize;
-        outputText.color = textColor;
-        outputText.alignment = TextAlignmentOptions.TopLeft;
-        outputText.textWrappingMode = TextWrappingModes.Normal;
-        outputText.overflowMode = TextOverflowModes.Overflow;
-        outputText.raycastTarget = false;
-        outputText.text = string.Empty;
+        _outputText = textObject.GetComponent<TextMeshProUGUI>();
+        _outputText.font = fontAsset != null ? fontAsset : TMP_Settings.defaultFontAsset;
+        _outputText.fontSize = fontSize;
+        _outputText.color = textColor;
+        _outputText.alignment = TextAlignmentOptions.TopLeft;
+        _outputText.textWrappingMode = TextWrappingModes.Normal;
+        _outputText.overflowMode = TextOverflowModes.Overflow;
+        _outputText.raycastTarget = false;
+        _outputText.text = string.Empty;
     }
 
     private IEnumerator TypeMessage()
     {
-        string visibleText = string.Empty;
         string message = openingMessage ?? string.Empty;
 
-        for (int i = 0; i < message.Length; i++)
+        for (var i = 0; i < message.Length; i++)
         {
-            if (skipRequested)
+            if (_skipRequested)
             {
                 break;
             }
 
             char character = message[i];
-            visibleText += character;
-            outputText.text = visibleText + (i < message.Length - 1 ? cursor : string.Empty);
+            ShowText(message[..(i + 1)] + (i < message.Length - 1 ? cursor : string.Empty));
 
             PlayTypingSound(character);
 
@@ -142,14 +151,24 @@ public sealed class BasicUITypewriter : MonoBehaviour
             }
         }
 
-        outputText.text = message;
-        typingCoroutine = null;
-        skipRequested = false;
+        ShowText(message);
+        _typingCoroutine = null;
+        _skipRequested = false;
+    }
+
+    private void ShowText(string text)
+    {
+        _outputText.text = text;
+
+        // Once the log overflows, stick to the bottom so the newest lines stay visible.
+        _outputText.alignment = _outputText.preferredHeight > _viewport.rect.height
+            ? TextAlignmentOptions.BottomLeft
+            : TextAlignmentOptions.TopLeft;
     }
 
     private void PlayTypingSound(char character)
     {
-        if (char.IsWhiteSpace(character) || audioSource == null || typingSounds == null || typingSounds.Length == 0)
+        if (char.IsWhiteSpace(character) || _audioSource == null || typingSounds == null || typingSounds.Length == 0)
         {
             return;
         }
@@ -160,7 +179,7 @@ public sealed class BasicUITypewriter : MonoBehaviour
             return;
         }
 
-        audioSource.pitch = Random.Range(1f - pitchRandomness, 1f + pitchRandomness);
-        audioSource.PlayOneShot(clip);
+        _audioSource.pitch = Random.Range(1f - pitchRandomness, 1f + pitchRandomness);
+        _audioSource.PlayOneShot(clip);
     }
 }
