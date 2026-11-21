@@ -8,27 +8,15 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
-    
+
     private int _energyPerSec;
     private const float UpgradeCostMult = 1.35F;
-    
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     public static bool VerifyEnoughEnergy(Upgrade upgrade)
     {
         return upgrade.energyCost <= ButtonController.Instance.GetEnergy();
@@ -47,8 +35,8 @@ public class UpgradeManager : MonoBehaviour
 
         ProcessUpgrade(upgrade);
         ButtonController.Instance.IncrementEnergy(-upgrade.energyCost);
-        
-        upgrade.energyCost = (int) (upgrade.energyCost * UpgradeCostMult);
+
+        upgrade.energyCost = (int)(upgrade.energyCost * UpgradeCostMult);
     }
 
     /// <summary>
@@ -66,16 +54,16 @@ public class UpgradeManager : MonoBehaviour
             case Upgrade.UpgradeType.MouseClick:
                 ButtonController.Instance.ModifyEnergyPerClick(upgrade.upgradeAmount);
                 break;
-            
+
             case Upgrade.UpgradeType.OverTime:
                 ModifyEnergyPerSec(upgrade.upgradeAmount);
                 break;
-            
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
+
     /// <summary>
     /// Update the number of Energy produced per second.
     /// <p>
@@ -87,7 +75,7 @@ public class UpgradeManager : MonoBehaviour
         var startCoroutine = _energyPerSec == 0;
         _energyPerSec += amount;
         ButtonController.Instance.UpdateEnergyPerSecText(_energyPerSec);
-        
+
         if (startCoroutine) StartCoroutine(GenerateEnergy());
     }
 

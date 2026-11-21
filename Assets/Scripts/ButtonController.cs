@@ -9,12 +9,18 @@ using UnityEngine;
 public class ButtonController : MonoBehaviour
 {
     public static ButtonController Instance;
-    
+
     [Header("UI Elements")]
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI energyPerClickText;
     public TextMeshProUGUI energyPerSecText;
-    
+
+    [Header("Text Formats")]
+    [Tooltip("{0} = energy per click")]
+    public string energyPerClickFormat = "Energy Per Click: {0}";
+    [Tooltip("{0} = energy per second")]
+    public string energyPerSecFormat = "Energy Per Second: {0}";
+
     private int _energy;
     private int _energyPerClick;
 
@@ -28,27 +34,21 @@ public class ButtonController : MonoBehaviour
     {
         _energy = 0;
         _energyPerClick = 1;
-        
-        if (!energyText) 
+
+        if (!energyText)
             Debug.LogWarning("ButtonController: No Energy Text Set.");
         else
             UpdateEnergyText();
-        
-        if (!energyPerClickText) 
-            Debug.LogWarning("ButtonController: No Energy Per Click Text Set.");
-        else 
-            UpdateEnergyPerClickText();
-        
-        if (!energyPerSecText) 
-            Debug.LogWarning("ButtonController: No Energy Per Second Text Set.");
-        else 
-            UpdateEnergyPerSecText(0);
-    }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        
+        if (!energyPerClickText)
+            Debug.LogWarning("ButtonController: No Energy Per Click Text Set.");
+        else
+            UpdateEnergyPerClickText();
+
+        if (!energyPerSecText)
+            Debug.LogWarning("ButtonController: No Energy Per Second Text Set.");
+        else
+            UpdateEnergyPerSecText(0);
     }
 
     public void OnClick()
@@ -72,25 +72,25 @@ public class ButtonController : MonoBehaviour
         _energyPerClick += amount;
         UpdateEnergyPerClickText();
     }
-    
+
     private void UpdateEnergyText()
     {
         if (!energyText) return;
-        
+
         energyText.text = _energy.ToString();
     }
-    
+
     private void UpdateEnergyPerClickText()
     {
         if (!energyPerClickText) return;
-        
-        energyPerClickText.text = "Energy Per Click: " + _energyPerClick;
+
+        energyPerClickText.text = string.Format(energyPerClickFormat, _energyPerClick);
     }
-    
+
     public void UpdateEnergyPerSecText(int perSec)
     {
         if (!energyPerSecText) return;
-        
-        energyPerSecText.text = "Energy Per Second: " + perSec;
+
+        energyPerSecText.text = string.Format(energyPerSecFormat, perSec);
     }
 }
